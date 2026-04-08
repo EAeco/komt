@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="KOMT"/>
-<meta name="theme-color" content="#C07A18"/>
 <title>KOMT</title>
 <style>
-*,*::before,*::after{-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+*,*::before,*::after{-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 html,body{height:100%;width:100%;overflow:hidden;background:#FDF8F2;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#2A1E0C;font-size:15px;-webkit-text-size-adjust:none}
 #app{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;height:100vh;max-height:100vh}
 .top-bar{background:#FFF;border-bottom:0.5px solid rgba(150,110,50,0.25);-webkit-flex-shrink:0;flex-shrink:0;display:-webkit-flex;display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px;padding-top:calc(env(safe-area-inset-top,20px) + 8px);box-shadow:0 1px 6px rgba(150,100,20,0.08);z-index:10}
@@ -251,14 +251,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <input type="file" id="import-file" accept=".json" style="display:none" onchange="importBackup(this)"/>
       <div style="text-align:center;padding:20px 0;color:#B09870;font-size:12px">KOMT v2.0 · Kitchen Order Management Tool</div>
     </div>
-  </div>
-
-  <!-- INSTALL BANNER -->
-  <div id="install-banner" style="display:none;background:#FEF4DC;border-top:1px solid rgba(192,122,24,0.3);padding:10px 14px;-webkit-flex-shrink:0;flex-shrink:0;-webkit-align-items:center;align-items:center;gap:10px;-webkit-justify-content:space-between;justify-content:space-between">
-    <div style="font-size:12px;color:#7A6040;line-height:1.4;-webkit-flex:1;flex:1">
-      <strong style="color:#C07A18">Install KOMT:</strong> Tap the <strong>Share button</strong> (↑) in Safari then <strong>Add to Home Screen</strong>
-    </div>
-    <button onclick="dismissBanner()" style="background:transparent;border:none;font-size:18px;color:#B09870;cursor:pointer;padding:4px;-webkit-flex-shrink:0;flex-shrink:0">✕</button>
   </div>
 
   <div class="bottom-tabs">
@@ -951,22 +943,11 @@ var _tt;
 function toast(msg){ var el=qs('#toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(_tt); _tt=setTimeout(function(){ el.classList.remove('show'); },2400); }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-function dismissBanner(){ var b=qs('#install-banner'); if(b) b.style.display='none'; try{ localStorage.setItem('komt_banner_dismissed','1'); }catch(e){} }
-function showInstallBanner(){
-  // Only show in Safari browser, not when already installed as PWA
-  var isInstalled=window.navigator.standalone===true;
-  var dismissed=false; try{ dismissed=localStorage.getItem('komt_banner_dismissed')==='1'; }catch(e){}
-  var isSafari=/Safari/.test(navigator.userAgent)&&!/CriOS/.test(navigator.userAgent)&&!/FxiOS/.test(navigator.userAgent);
-  var b=qs('#install-banner');
-  if(b&&!isInstalled&&!dismissed&&isSafari) b.style.display='-webkit-flex', b.style.display='flex';
-}
-
 function init(){
   updateTopDate();
   renderMenu(); renderPaySelector(); renderCart(); updateBadge();
   qs('#pickup-date').value=today();
   initCurrency();
-  showInstallBanner();
 }
 init();
 </script>
