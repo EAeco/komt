@@ -1,26 +1,41 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="KOMT"/>
+<meta name="theme-color" content="#C07A18"/>
 <title>KOMT</title>
 <style>
-*,*::before,*::after{-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
-html,body{height:100%;width:100%;overflow:hidden;background:#FDF8F2;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#2A1E0C;font-size:15px;-webkit-text-size-adjust:none}
-#app{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;height:100vh;max-height:100vh}
-.top-bar{background:#FFF;border-bottom:0.5px solid rgba(150,110,50,0.25);-webkit-flex-shrink:0;flex-shrink:0;display:-webkit-flex;display:flex;align-items:center;justify-content:space-between;padding:10px 16px 10px;padding-top:calc(env(safe-area-inset-top,20px) + 8px);box-shadow:0 1px 6px rgba(150,100,20,0.08);z-index:10}
+*,*::before,*::after{-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{height:100%;height:-webkit-fill-available}
+body{height:100%;height:-webkit-fill-available;width:100%;overflow:hidden;background:#FDF8F2;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#2A1E0C;font-size:15px;-webkit-text-size-adjust:none}
+#app{display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;height:100%;height:-webkit-fill-available;min-height:-webkit-fill-available;position:fixed;top:0;left:0;right:0;bottom:0}
+.top-bar{background:#FFF;border-bottom:0.5px solid rgba(150,110,50,0.25);-webkit-flex-shrink:0;flex-shrink:0;display:-webkit-flex;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;box-shadow:0 1px 6px rgba(150,100,20,0.08);z-index:10}
 .top-bar-title{font-size:20px;font-weight:700;color:#C07A18;letter-spacing:-0.3px}
 .top-bar-sub{font-size:11px;color:#B09870;margin-top:1px}
-.bottom-tabs{background:#FFF;border-top:0.5px solid rgba(150,110,50,0.2);display:-webkit-flex;display:flex;-webkit-flex-shrink:0;flex-shrink:0;box-shadow:0 -1px 8px rgba(150,100,20,0.07);padding-bottom:env(safe-area-inset-bottom,0px)}
-.tab-item{-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;align-items:center;justify-content:center;padding:8px 2px 10px;cursor:pointer;border:none;background:transparent;-webkit-appearance:none;position:relative;min-width:0}
-.tab-icon{font-size:19px;margin-bottom:2px}
-.tab-label{font-size:9.5px;font-weight:500;color:#B09870}
-.tab-item.active .tab-label{color:#C07A18}
-.tab-item.active .tab-icon{-webkit-transform:scale(1.1);transform:scale(1.1)}
-.tab-badge{position:absolute;top:4px;right:50%;margin-right:-18px;background:#E05828;color:#fff;border-radius:9px;font-size:9px;font-weight:700;min-width:15px;height:15px;padding:0 3px;display:-webkit-flex;display:flex;align-items:center;justify-content:center}
+/* HAMBURGER MENU */
+.menu-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(30,15,0,0.35);z-index:150;display:none}
+.menu-overlay.open{display:block}
+.side-menu{position:fixed;top:0;right:0;bottom:0;width:72%;max-width:280px;background:#FDF8F2;z-index:160;-webkit-transform:translateX(100%);transform:translateX(100%);-webkit-transition:-webkit-transform 0.25s ease;transition:transform 0.25s ease;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:-4px 0 20px rgba(30,10,0,0.15)}
+.side-menu.open{-webkit-transform:translateX(0);transform:translateX(0)}
+.side-menu-header{background:#C07A18;padding:20px 16px 16px;display:-webkit-flex;display:flex;align-items:center;justify-content:space-between}
+.side-menu-title{font-size:20px;font-weight:700;color:#FFF;letter-spacing:-0.3px}
+.side-menu-close{background:rgba(255,255,255,0.2);border:none;color:#FFF;font-size:20px;width:34px;height:34px;border-radius:50%;cursor:pointer;display:-webkit-flex;display:flex;align-items:center;justify-content:center;-webkit-appearance:none}
+.menu-nav-item{display:-webkit-flex;display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:0.5px solid rgba(150,110,50,0.12);cursor:pointer;background:transparent;border-left:none;border-right:none;border-top:none;width:100%;text-align:left;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-appearance:none;-webkit-transition:background 0.1s;transition:background 0.1s}
+.menu-nav-item:active{background:#F6F0E8}
+.menu-nav-item.active{background:#FEF4DC;border-left:3px solid #C07A18}
+.menu-nav-item.active .mni-label{color:#C07A18;font-weight:600}
+.mni-icon{font-size:20px;width:32px;text-align:center;-webkit-flex-shrink:0;flex-shrink:0}
+.mni-label{font-size:15px;font-weight:500;color:#2A1E0C;-webkit-flex:1;flex:1}
+.mni-badge{background:#E05828;color:#fff;border-radius:10px;font-size:10px;font-weight:700;min-width:18px;height:18px;padding:0 4px;display:-webkit-flex;display:flex;align-items:center;justify-content:center}
+/* HAMBURGER BUTTON */
+.hamburger{background:transparent;border:none;cursor:pointer;padding:6px;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;gap:5px;-webkit-appearance:none}
+.hamburger span{display:block;width:22px;height:2px;background:#C07A18;border-radius:2px}
+/* CURRENT PAGE LABEL */
+.current-page-label{font-size:12px;color:#B09870;margin-top:1px}
 .screen{display:none;-webkit-flex:1;flex:1;overflow:hidden;-webkit-flex-direction:column;flex-direction:column;min-height:0}
 .screen.active{display:-webkit-flex;display:flex}
 .scroll-view{-webkit-flex:1;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 14px 24px}
@@ -127,15 +142,57 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <div class="top-bar">
     <div>
       <div class="top-bar-title">KOMT</div>
-      <div class="top-bar-sub" id="top-date">Kitchen Order Management Tool</div>
+      <div class="current-page-label" id="current-page-label">New Order</div>
     </div>
     <div class="fl ac g8">
-      <span id="top-currency" style="font-size:18px;font-weight:700;color:#C07A18">£</span>
       <div id="active-badge" style="display:none;background:#E05828;color:#fff;border-radius:12px;font-size:11px;font-weight:700;padding:3px 9px">0 active</div>
+      <span id="top-currency" style="font-size:16px;font-weight:700;color:#C07A18">£</span>
+      <button class="hamburger" onclick="openMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SIDE MENU OVERLAY -->
+
+  <div class="menu-overlay" id="menu-overlay" onclick="closeMenu()"></div>
+
+  <!-- SIDE MENU -->
+
+  <div class="side-menu" id="side-menu">
+    <div class="side-menu-header">
+      <div>
+        <div class="side-menu-title">KOMT</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px" id="side-date"></div>
+      </div>
+      <button class="side-menu-close" onclick="closeMenu()">✕</button>
+    </div>
+    <button class="menu-nav-item active" id="mnav-order" onclick="navTab('order',this)">
+      <span class="mni-icon">📋</span><span class="mni-label">New Order</span>
+    </button>
+    <button class="menu-nav-item" id="mnav-active" onclick="navTab('active',this)">
+      <span class="mni-icon">🔥</span><span class="mni-label">Active Orders</span>
+      <span id="tab-badge" class="mni-badge" style="display:none">0</span>
+    </button>
+    <button class="menu-nav-item" id="mnav-prep" onclick="navTab('prep',this)">
+      <span class="mni-icon">👨‍🍳</span><span class="mni-label">Kitchen Prep</span>
+    </button>
+    <button class="menu-nav-item" id="mnav-expenses" onclick="navTab('expenses',this)">
+      <span class="mni-icon">💸</span><span class="mni-label">Expenses</span>
+    </button>
+    <button class="menu-nav-item" id="mnav-history" onclick="navTab('history',this)">
+      <span class="mni-icon">📊</span><span class="mni-label">Reports & History</span>
+    </button>
+    <button class="menu-nav-item" id="mnav-more" onclick="navTab('more',this)">
+      <span class="mni-icon">⚙️</span><span class="mni-label">Settings & More</span>
+    </button>
+    <div style="padding:16px 18px;margin-top:8px;border-top:0.5px solid rgba(150,110,50,0.15)">
+      <div style="font-size:11px;color:#B09870">KOMT v2.0 · Kitchen Order Management Tool</div>
     </div>
   </div>
 
   <!-- ORDER SCREEN -->
+
   <div id="screen-order" class="screen active">
     <div class="scroll-view">
       <div class="sec">Menu</div>
@@ -162,6 +219,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <!-- ACTIVE ORDERS -->
+
   <div id="screen-active" class="screen">
     <div class="scroll-view">
       <div class="fl ac jb" style="margin-bottom:10px">
@@ -173,6 +231,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <!-- PREP -->
+
   <div id="screen-prep" class="screen">
     <div class="scroll-view">
       <div class="fl ac jb" style="margin-bottom:10px">
@@ -187,6 +246,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <!-- EXPENSES TAB -->
+
   <div id="screen-expenses" class="screen">
     <div class="fl fc" style="height:100%;overflow:hidden">
       <div style="padding:12px 14px;background:#FFF;border-bottom:0.5px solid rgba(150,110,50,0.2);-webkit-flex-shrink:0;flex-shrink:0">
@@ -212,6 +272,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <!-- HISTORY / REPORTS -->
+
   <div id="screen-history" class="screen">
     <div class="fl fc" style="height:100%;overflow:hidden">
       <div style="padding:12px 14px 0;background:#FFF;border-bottom:0.5px solid rgba(150,110,50,0.2);-webkit-flex-shrink:0;flex-shrink:0">
@@ -226,6 +287,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <!-- MORE -->
+
   <div id="screen-more" class="screen">
     <div class="scroll-view">
       <div class="sec">Products & menu</div>
@@ -253,15 +315,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     </div>
   </div>
 
-  <div class="bottom-tabs">
-    <button class="tab-item active" id="tab-order" onclick="navTab('order',this)"><span class="tab-icon">📋</span><span class="tab-label">Order</span></button>
-    <button class="tab-item" id="tab-active" onclick="navTab('active',this)"><span class="tab-icon">🔥</span><span class="tab-label">Active</span><span id="tab-badge" class="tab-badge" style="display:none">0</span></button>
-    <button class="tab-item" id="tab-prep" onclick="navTab('prep',this)"><span class="tab-icon">👨‍🍳</span><span class="tab-label">Prep</span></button>
-    <button class="tab-item" id="tab-expenses" onclick="navTab('expenses',this)"><span class="tab-icon">💸</span><span class="tab-label">Expenses</span></button>
-    <button class="tab-item" id="tab-history" onclick="navTab('history',this)"><span class="tab-icon">📊</span><span class="tab-label">Reports</span></button>
-    <button class="tab-item" id="tab-more" onclick="navTab('more',this)"><span class="tab-icon">⚙️</span><span class="tab-label">More</span></button>
-  </div>
-</div>
+</div><!-- end #app -->
 
 <div id="sheet-overlay" class="sheet-overlay" style="display:none" onclick="sheetBgClick(event)">
   <div class="sheet"><div class="sheet-handle"></div><div id="sheet-content"></div></div>
@@ -341,15 +395,22 @@ function catStyle(id){ var c=catById(id); if(!c) return ''; return 'background:'
 function gv(id){ var e=qs('#'+id); return e?e.value:''; }
 
 // ─── NAV ─────────────────────────────────────────────────────────────────────
+function openMenu(){ qs('#menu-overlay').classList.add('open'); qs('#side-menu').classList.add('open'); }
+function closeMenu(){ qs('#menu-overlay').classList.remove('open'); qs('#side-menu').classList.remove('open'); }
+var PAGE_LABELS={order:'New Order',active:'Active Orders',prep:'Kitchen Prep',expenses:'Expenses',history:'Reports & History',more:'Settings & More'};
 function navTab(name,btn){
   qsa('.screen').forEach(function(s){ s.classList.remove('active'); });
-  qsa('.tab-item').forEach(function(b){ b.classList.remove('active'); });
+  qsa('.menu-nav-item').forEach(function(b){ b.classList.remove('active'); });
   qs('#screen-'+name).classList.add('active');
-  (btn||qs('#tab-'+name)).classList.add('active');
+  var menuBtn=qs('#mnav-'+name); if(menuBtn) menuBtn.classList.add('active');
+  var lbl=qs('#current-page-label'); if(lbl) lbl.textContent=PAGE_LABELS[name]||name;
+  closeMenu();
   var map={order:function(){ renderMenu(); renderPaySelector(); renderCart(); },active:renderActive,prep:renderPrep,expenses:renderExpenses,history:function(){ renderHistFilters(); renderHist(); },more:initCurrency};
   if(map[name]) map[name]();
 }
-function updateTopDate(){ qs('#top-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'}); }
+function updateTopDate(){
+  var el=qs('#side-date'); if(el) el.textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+}
 
 // ─── MENU ────────────────────────────────────────────────────────────────────
 function renderMenu(){
@@ -451,8 +512,8 @@ function cancelOrder(date,id){
 }
 function updateBadge(){
   var n=activeOrders().length;
-  qs('#tab-badge').textContent=n; qs('#tab-badge').style.display=n>0?'flex':'none';
-  qs('#active-badge').textContent=n+' active'; qs('#active-badge').style.display=n>0?'block':'none';
+  var b=qs('#tab-badge'); if(b){ b.textContent=n; b.style.display=n>0?'flex':'none'; }
+  var ab=qs('#active-badge'); if(ab){ ab.textContent=n+' active'; ab.style.display=n>0?'block':'none'; }
 }
 
 // ─── PREP — excludes ready/done/cancelled ────────────────────────────────────
@@ -951,5 +1012,6 @@ function init(){
 }
 init();
 </script>
+
 </body>
 </html>
